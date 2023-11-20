@@ -344,12 +344,10 @@ static void CMD_052D(const uint8_t *pBuffer)
 	Reply.Header.ID = 0x052E;
 	Reply.Header.Size = sizeof(Reply.Data);
 
-	bIsLocked = bHasCustomAesKey;
-
-	if (!bIsLocked) {
+	if (bHasCustomAesKey) {
 		bIsLocked = IsBadChallenge(gCustomAesKey, gChallenge, pCmd->Response);
 	}
-	if (!bIsLocked) {
+	else {
 		bIsLocked = IsBadChallenge(gDefaultAesKey, gChallenge, pCmd->Response);
 		if (bIsLocked) {
 			gTryCount++;
