@@ -250,7 +250,7 @@ Skip:
 		RADIO_SetupRegisters(true);
 #if defined(ENABLE_NOAA)
 		if (IS_NOAA_CHANNEL(gRxVfo->CHANNEL_SAVE)) {
-			gSystickCountdown2 = 300;
+			gSystickCountdown2 = 800;	//2.01.32 PATCH
 		}
 #endif
 		gUpdateDisplay = true;
