@@ -57,7 +57,7 @@ void SystickHandler(void)
 	if (gFoundCTCSSCountdown) {
 		gFoundCTCSSCountdown--;
 	}
-	if (gCurrentFunction == FUNCTION_FOREGROUND) {
+	if (gCurrentFunction == FUNCTION_FOREGROUND && gSystickCountdown2 == 0) {
 		DECREMENT_AND_TRIGGER(gBatterySaveCountdown, gSchedulePowerSave);
 	}
 	if (gCurrentFunction == FUNCTION_POWER_SAVE) {
@@ -66,7 +66,7 @@ void SystickHandler(void)
 
 	if (gScanState == SCAN_OFF && gCssScanMode == CSS_SCAN_MODE_OFF && gEeprom.DUAL_WATCH != DUAL_WATCH_OFF) {
 		if (gCurrentFunction != FUNCTION_MONITOR && gCurrentFunction != FUNCTION_TRANSMIT) {
-			if (gCurrentFunction != FUNCTION_RECEIVE) {
+			if (gCurrentFunction != FUNCTION_RECEIVE && gSystickCountdown2 == 0) {		//2.01.32 PATCH
 				DECREMENT_AND_TRIGGER(gDualWatchCountdown, gScheduleDualWatch);
 			}
 		}
@@ -75,7 +75,7 @@ void SystickHandler(void)
 #if defined(ENABLE_NOAA)
 	if (gScanState == SCAN_OFF && gCssScanMode == CSS_SCAN_MODE_OFF && gEeprom.DUAL_WATCH == DUAL_WATCH_OFF) {
 		if (gIsNoaaMode && gCurrentFunction != FUNCTION_MONITOR && gCurrentFunction != FUNCTION_TRANSMIT) {
-			if (gCurrentFunction != FUNCTION_RECEIVE) {
+			if (gCurrentFunction != FUNCTION_RECEIVE && gSystickCountdown2 == 0) {		//2.01.32 PATCH
 				DECREMENT_AND_TRIGGER(gNOAA_Countdown, gScheduleNOAA);
 			}
 		}
